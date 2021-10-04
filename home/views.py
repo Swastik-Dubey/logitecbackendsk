@@ -352,7 +352,7 @@ def postcheckuserupdate (request) :
     db = database.child("Data").child("Signup").child(user_type).get()
     for user in db.each() :
         if user.val()['Email']==old_email and auth.get_user_by_email(old_email) : 
-            return render(request , "updateuser.html" ,{"olemad_il":old_email, "user_type": user_type})
+            return render(request , "updateuser.html" ,{"old_email":old_email, "user_type": user_type})
     return render(request , "checkuserupdate.html" , {"msg" : "User not Found!"})
     
 def postuserupdate(request):

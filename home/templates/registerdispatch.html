@@ -61,14 +61,14 @@
       <div class="mynav">
         <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-5">
             <div class="container-fluid">
-              <a class="navbar-brand" style="font-size: 22px;" href="#">Company-name</a>
+              <a class="navbar-brand" style="font-size: 22px;" href="#">HariOm-Logistics</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/ ">Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
@@ -89,11 +89,11 @@
                   </li>
                   
                 </ul>
-                <form class="d-flex">
+                <form class="d-flex" action="/dispatchlogin" method="POST">
                 {% csrf_token %}
                   <!-- <a  class="nav-link nav-item" href="">Login</a> -->
-                  <button type="submit" class="btn btn-primary btn-block mx-3 ">Login</button>
-                  <button type="submit" class="btn btn-danger btn-block  ">Logout</button>
+                  
+                  <button type="submit" class="btn btn-danger btn-block">Logout</button>
                   
                 </form>
               </div>
@@ -141,7 +141,7 @@
                           <select class="form-select" aria-label="Select city" >
                             <option selected>Choose State</option>
                               <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="state" method="GET" class="form-control" required ></select>
-                             
+                             <select id ="state" name="city" class="form-control" method="GET" required></select>
                              <script language="javascript">print_state("sts");</script>
             
                           </select>
