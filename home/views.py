@@ -242,7 +242,9 @@ def postloginmis(request) :
                 user=authe.sign_in_with_email_and_password(email,passwd)
                 session_id=user['idToken']
                 request.session['uid']=str(session_id)
-                return render(request , 'lh2.html')
+                firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
+                admindata=list(firebase.get("/Data/BookingOrder/Orders",None).values())
+                return render(request , 'product_table.html' , {"admindata":admindata})
             except :
                 tempmail=email
                 msg="Invalid Password!!"
@@ -301,50 +303,19 @@ def dispatchpanel(request):
 def dispatchconfirm(request):
   
     return render(request , "dispatchconfirm.html" )
-def postresetbooking (request) :
+def postreset(request) :
     email = request.POST.get("email")
     try :
         authe.send_password_reset_email(email)
         message  = "A email to reset password is succesfully sent"
         return render(request, "bookingreset.html", {"msg":message})
     except:
-        message  = "Something went wrong, Please check the email you provided is registered or not"
+        message  = "Something went wrong, Your Email is not registered!!"
         return render(request, "bookingreset.html", {"msg":message})
-def postresetdispatch (request) :
-    email = request.POST.get("email")
-    try :
-        authe.send_password_reset_email(email)
-        message  = "A email to reset password is succesfully sent"
-        return render(request, "postresetdispatch.html", {"msg":message})
-    except:
-        message  = "Something went wrong, Please check the email you provided is registered or not"
-        return render(request, "postresetdispatch.html", {"msg":message})
-def postresetmis (request) :
-    email = request.POST.get("email")
-    try :
-        authe.send_password_reset_email(email)
-        message  = "A email to reset password is succesfully sent"
-        return render(request, "misreset.html", {"msg":message})
-    except:
-        message  = "Something went wrong, Please check the email you provided is registered or not"
-        return render(request, "misreset.html", {"msg":message})  
-def postresetadmin (request) :
-    email = request.POST.get("email")
-    try :
-        authe.send_password_reset_email(email)
-        message  = "A email to reset password is succesfully sent"
-        return render(request, "postresetadmin.html", {"msg":message})
-    except:
-        message  = "Something went wrong, Please check the email you provided is registered or not"
-        return render(request, "postresetadmin.html", {"msg":message})
-def bookingforget (request) :
+
+def forget(request) :
     return render (request ,"bookingreset.html")
-def dispatchforget (request) :
-    return render (request ,"dispatchreset.html")
-def misforget (request) :
-    return render (request ,"misreset.html")
-def adminforget (request) :
-    return render (request ,"postresetadmin.html")
+
 
 def registernewcompany(request):
     return render(request , "registernewcompany.html")

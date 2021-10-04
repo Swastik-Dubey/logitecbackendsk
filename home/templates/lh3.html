@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+{% load static %}
 <!doctype html>
 <html lang="en">
 {%if msg%}
@@ -8,17 +8,6 @@
 {% endif%}
 
 <head>
-=======
-{% load static %}
-<!doctype html>
-<html lang="en">
-    {%if msg%}
-    <script>
-        window.alert('{{msg}}');
-    </script>
-{% endif%}
-  <head>
->>>>>>> 547206015db2c19c7634c7041e523ae796bccc9d
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +16,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!-- {% comment %} <link rel="stylesheet" href="postadminlogin.css"> {% endcomment %} -->
     <title>lh3</title>
-<<<<<<< HEAD
 </head>
 <style>
     .navbar {
@@ -73,14 +61,14 @@
         <div class="mynav">
             <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-5">
                 <div class="container-fluid">
-                    <a class="navbar-brand" style="font-size: 22px;" href="#">Company-name</a>
+                    <a class="navbar-brand" style="font-size: 22px;" href="#">HariOm-Logistics</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/ ">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
@@ -103,8 +91,9 @@
                             </li>
 
                         </ul>
-                        <form class="d-flex">
-                            <a class="nav-link nav-item" href="">Login</a>
+                        <form class="d-flex" action="/dispatchlogin/" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-block">Logout</button>
 
                         </form>
                     </div>
@@ -119,6 +108,7 @@
                     <section class="col-12 col-lg-5 col-md-3">
                         <form class="form-container py-5 px-5" action="/postdispatchuser/" method="POST">
                             {% csrf_token %}
+                            <input type="hidden" name="hiddenuserid" value={{user_id}}>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">From Date</label>
                                 <input type="date" class="form-control" name="date1" aria-describedby="emailHelp" placeholder="Enter date">
@@ -131,116 +121,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">From City(Specify City Name)</label>
-                                <input type="text" list="brow1" name="cityname" class="form-control" name="date2" aria-describedby="emailHelp" placeholder="Enter City Name">
+                                <input type="text" list="brow1" name="cityname" class="form-control" name="date2" aria-describedby="emailHelp" placeholder="Enter date">
                                 <datalist id="brow1" name="cityname">
-=======
-  </head>
-  <style>
-    .navbar{
-    background-color: transparent !important ;
-}
-.navbar .navbar-nav{
-    margin: 0 auto;
-   
-}
-.navbar .nav-link {
-    font-size: 22px;
-    
-    padding-right: 20px;
-}
-.navbar .navbar-brand{
-    /* font-size: 20px !important; */
-   font-size: larger;
-}
-.navbar .nav-item{
-    padding-right: 30px;
-}
-
-.head{
-    padding-top: 8vw;
-    font-size: 5vw;
-    
-}
-.form-container{
-    background:#fff;
-    /* position: absolute; */
-    top: 35vh;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 6px 0px #000;
-
-}
-  </style>
-  <body>
-    <div style="background-image: linear-gradient(45deg ,lightblue ,white) ; height: 100vh; padding-bottom: 20px;" class="start">
-
-      <div class="mynav">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-5">
-            <div class="container-fluid">
-              <a class="navbar-brand" style="font-size: 22px;" href="#">Company-name</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Services
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
-                  </li>
-                  
-                </ul>
-                <form class="d-flex">
-                  <a  class="nav-link nav-item" href="">Login</a>
-                  
-                </form>
-              </div>
-            </div>
-          </nav>
-          <h1 class="text-center py-4">WELCOME DISPATCH USER {{user_id}}</h1>
-
-          <section class="container-fluid">
-            
-            <section class="row  justify-content-center">
-                
-                <section class="col-12 col-lg-5 col-md-3"   >
-                    <form class="form-container py-5 px-5"  action="/postdispatchuser/" method="POST">
-                        {% csrf_token %}
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">From Date</label>
-                          <input type="date" class="form-control" name="date1" aria-describedby="emailHelp" placeholder="Enter date">
-                          
-                        </div>
-                       <div class="form-group my-3">
-                          <label for="exampleInputEmail1">Till Date</label>
-                          <input type="date" class="form-control" name="date2" aria-describedby="emailHelp" placeholder="Enter date">
-                          
-                        </div>
-                       <div class="form-group">
-                          <label for="exampleInputEmail1">From City(Specify City Name)</label>
-                          <input type="text" list="brow1" name="cityname" class="form-control" name="date2" aria-describedby="emailHelp" placeholder="Enter date">
-                           <datalist id="brow1" name="cityname">
->>>>>>> 547206015db2c19c7634c7041e523ae796bccc9d
                 {% for fromcity12 in fromcitylist %}
                 <option value= "{{fromcity12}}" >{{fromcity12}}</option>
                     {% endfor %}
                     </datalist>
-<<<<<<< HEAD
 
                             </div>
                             <div class="text-center">
@@ -274,37 +160,3 @@
 </body>
 
 </html>
-=======
-                         
-                        </div>
-                        <div class="text-center">
-                        
-                        <input type="submit" class="btn btn-primary my-3 text-center" value="Submit">
-                        </div>
-                         <form action="/viewdispatchorders/" method="post">
-        {% csrf_token %}
-
-        <input class="form-control" type="hidden" name="hiddenuserid12"  value={{user_id}}>
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-dark">Orders Dispatched</button>
-        </div>
-    </form>
-                      </form>
-                      
-                </section>
-            </section>
-          </section>
-
-
-                    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-    -->
-  </body>
-  </html>
->>>>>>> 547206015db2c19c7634c7041e523ae796bccc9d

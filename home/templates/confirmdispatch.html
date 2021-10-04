@@ -65,7 +65,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/ ">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
@@ -110,7 +110,8 @@
                         <form class="form-container py-5 px-5" action="/postconfirmdispatch/" method="POST">
                             {% csrf_token %}
                             <div class=" py-3 form-group">
-                                <label for="exampleInputEmail1">Selected Order By User:{{userid2}} </label>
+                            <label for="exampleInputEmail1"> <b><i>User : {{userid2}} </i> </b></label> <br>
+                                <label for="exampleInputEmail1"> <b>Selected Order : </b> </label>
                                 <input type="hidden" name="hiddenuserid3" value={{userid2}} readonly class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                 <input type="text" type="text" name="bill_id" value={{bill_id}} readonly class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 
