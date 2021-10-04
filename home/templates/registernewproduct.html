@@ -101,6 +101,7 @@
                 
                 <section class="col-12 col-lg-6 col-md-3"   >
                     <form class="form-container py-5 px-5" action="/postregisternewproduct/" method="post">
+                    {% csrf_token %}
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Email address</label>
