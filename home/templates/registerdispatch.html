@@ -129,30 +129,24 @@
                             <label  for="exampleInputPassword1" style="font-size: 20px;">Address</label>
                             <input type="text"name="add"class="form-control" name="pass" placeholder="Address" >
                           </div>
-                            <div class="form-group py-3">
-                            <label  for="exampleInputPassword1" style="font-size: 20px;">City</label>
-                            <select class="form-select" aria-label="Select city" >
-                              <option selected>Choose city</option>
-                              
-                            </select>
-                         </div>
-                          <div class="form-group py-3">
-                          <label  for="exampleInputPassword1" style="font-size: 20px;">State</label>
-                          <select class="form-select" aria-label="Select city" >
-                            <option selected>Choose State</option>
-                              <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="state" method="GET" class="form-control" required ></select>
-                             <select id ="state" name="city" class="form-control" method="GET" required></select>
-                             <script language="javascript">print_state("sts");</script>
-            
-                          </select>
-                         </div>
-                          <div class="form-group py-3">
-                            <label  for="exampleInputPassword1" style="font-size: 20px;">Pin code</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" >
+                        
+                       <div class="form-group py-3">
+                            <label for="exampleInputPassword1">State</label>
+                            <select  onchange="print_city('state', this.selectedIndex);" id="sts" name ="state" method="GET" class="form-control" required></select>
                           </div>
                           <div class="form-group py-3">
-                            <label  for="exampleInputPassword1" style="font-size: 20px;">Phone number</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" >
+                            <label for="exampleInputPassword1">City</label>
+                            <select id ="state" name="city" class="form-control" method="GET" required></select>
+                            <script language="javascript">print_state("sts");</script>  
+                          </div>
+                         
+                          <div class="form-group py-3">
+                            <label  for="Pin code" style="font-size: 20px;">Pin code</label>
+                            <input type="text" class="form-control" id="Pin code" placeholder="Pin Code" >
+                          </div>
+                          <div class="form-group py-3">
+                            <label  for="Phone number" style="font-size: 20px;">Phone number</label>
+                            <input type="text" class="form-control" id="Phone number" placeholder="Phone Number" >
                           </div>
                         <button type="submit" class="btn btn-primary btn-block mt-4 ">Submit</button>
                       </form>

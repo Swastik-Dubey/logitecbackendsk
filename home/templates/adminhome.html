@@ -1,8 +1,7 @@
-
-
-
-
 <!doctype html>
+
+
+
 <html lang="en">
 
 <head>
@@ -132,9 +131,9 @@
                             </li>
 
                         </ul>
-                           <form class="d-flex" action="/adminlogin/" method="POST">
+                        <form class="d-flex" action="/adminlogin/" method="POST">
 
-                           {% csrf_token %}
+                            {% csrf_token %}
                             <!-- <a class="nav-link nav-item" href="">Login</a> -->
                             <button type="submit" class="btn btn-danger btn-block  ">Logout</button>
                         </form>
@@ -148,7 +147,7 @@
                 <button type="button" class="btn btn-primary my-3  btn-lg mx-5"><a style="text-decoration: none; color: white;" href="/registernewuser">Register New User</a></button>
                 <button type="button" class="btn btn-primary my-3  btn-lg mx-5"><a style="text-decoration: none; color: white;" href="/registernewcompany">Register New Company</a></button>
                 <button type="button" class="btn btn-primary my-3  btn-lg mx-5"><a style="text-decoration:  none; color: white; " href="/usertable">Show All Users</a></button>
-                <button type="button" class="btn btn-primary my-3  btn-lg mx-5"><a style="text-decoration: none; color: white;" href="/registernewproduct">Register New Product</a></button>
+                <!-- <button type="button" class="btn btn-primary my-3  btn-lg mx-5"><a style="text-decoration: none; color: white;" href="/registernewproduct">Register New Product</a></button>  -->
 
             </div>
         </div>

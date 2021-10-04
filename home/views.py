@@ -16,6 +16,7 @@ from firebase_admin import auth ,credentials, db
 from datetime import date
 from datetime import datetime 
 import uuid
+
 config = {    
     "apiKey": "AIzaSyDxtgOS-lNR5iHH-35xjs9r1gIwiLDW6E8",
     "authDomain": "neemeesh-trial.firebaseapp.com",
@@ -322,20 +323,35 @@ def registernewcompany(request):
 
 def postregisternewcompany(request):
     firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
-    Data={
-        'Company id': request.POST.get('compid'),
-        'Company Name': request.POST.get('compname'),
-        'Email id': request.POST.get('compmail'),
-        'Contact Number 1': request.POST.get('compcont1'),
-        'Contact Number 2': request.POST.get('compcont2'),
-        'Address': request.POST.get('compadd'),
-        'City': request.POST.get('compcity'),
-        'Pincode' : request.POST.get('pincode'),
-        'State': request.POST.get('compstate'),
-    }
-    firebase.post('/Data/Company/', Data)
-    msg="Company is Registered Successfully!"
-    return render(request,"registernewcompany.html",{"msg":msg})
+    result=firebase.get('/Data/Company/', None) 
+    company_id=request.POST.get('compid')
+    company_ids = []
+    for userid,user in result.items():
+        company_ids.append(user['Company id'])
+    print(company_ids)
+    if company_id not in company_ids  :    
+    
+        Data={
+                'Company id': request.POST.get('compid'),
+                'Company Name': request.POST.get('compname'),
+                'Email id': request.POST.get('compmail'),
+                'Contact Number 1': request.POST.get('compcont1'),
+                'Contact Number 2': request.POST.get('compcont2'),
+                'Address': request.POST.get('compadd'),
+                'City': request.POST.get('compcity'),
+                'Pincode' : request.POST.get('pincode'),
+                'State': request.POST.get('compstate'),
+                'Cost per': request.POST.get('costper'),
+                'Cost' : request.POST.get('cost')
+                
+            }
+        firebase.post('/Data/Company/', Data)
+        msg="Company is Registered Successfully!"
+        return render(request,"registernewcompany.html",{"msg":msg})
+    else : 
+        msg="Company Already Exists!!"
+        return render(request,"registernewcompany.html",{"msg":msg})
+            
 def usertable (request) :
     firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
     admindata=list(firebase.get("/Data/Signup/Admin",None).values())
@@ -395,10 +411,10 @@ def postdeleteuser(request):
             auth.delete_user(user.uid)
             return render(request , "deleteuser.html" , {"msg" : "The User is deleted succesfully!"})
     return render(request , "deleteuser.html" , {"msg" : "User not Found!"})
-def productdetails(request):
-    firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
-    compdetails=list(firebase.get("/Data/Product",None).values())
-    return render (request ,"productdetails.html",{'compdetails':compdetails})
+# def productdetails(request):
+#     firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
+#     compdetails=list(firebase.get("/Data/Product",None).values())
+#     return render (request ,"productdetails.html",{'compdetails':compdetails})
 
 
 def bookingorder1 (request) :
@@ -409,8 +425,8 @@ def bookingorder1 (request) :
         for eachcompkey,eachcompval in compdetails.items():
             if eachcompkey=='Company Name':
                 compnames.append(eachcompval)
-    present_date = date.today().strftime("%d/%m/%Y")
-    return render(request, 'bookingorder1.html' , {"compnames" : compnames , "present_date": present_date})
+    
+    return render(request, 'bookingorder1.html' , {"compnames" : compnames })
 
 def postbookingorder1 (request) :
     user_id=request.POST.get('hiddenbookinguserid')
@@ -429,17 +445,6 @@ def postbookingorder1 (request) :
 
 
 
-'''def bookingorder(request):
-    firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
-    companies=list(firebase.get("/Data/Company",None).values())
-    compnames=[]
-    for compdetails in companies:
-        for eachcompkey,eachcompval in compdetails.items():
-            if eachcompkey=='Company Name':
-                compnames.append(eachcompval)
-    present_date = date.today().strftime("%d/%m/%Y")
-    
-    return render(request, 'bookingorder.html' , {"compnames" : compnames , "present_date": present_date})'''
 
 def postbookingorder(request):
     fromcity=request.POST.get("fromcity")
@@ -452,8 +457,7 @@ def postbookingorder(request):
     noofpckg= request.POST.get("noofpckg")
     description = request.POST.get("description")
     user_id=request.POST.get("hiddenbookinguserid")
-    # totalcost = int(cost)*int(noofpckg)
-    # print(totalcost)
+
     bill_id = uuid.uuid4()
     return render (request , "confirmbookingorder.html" , {        
                                                                     "fromcity" : fromcity ,
@@ -471,33 +475,8 @@ def postbookingorder(request):
                                                                     "user_id" : user_id    })
    
 
-def registernewproduct(request):
-    firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
-    companies=list(firebase.get("/Data/Company",None).values())
-    compnames=[]
-    for compdetails in companies:
-        for eachcompkey,eachcompval in compdetails.items():
-            if eachcompkey=='Company Name':
-                compnames.append(eachcompval)
-    return render(request, 'registernewproduct.html',{'compnames':compnames})
-def postregisternewproduct(request):    
-    firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
-    msg="Product is Registered Successfully!"
-    companies=list(firebase.get("/Data/Company",None).values())
-    compnames=[]
-    for compdetails in companies:
-        for eachcompkey,eachcompval in compdetails.items():
-            if eachcompkey=='Company Name':
-                compnames.append(eachcompval)
-    Data={
-        'Company Name': request.POST.get('compname'),
-        'Product Name': request.POST.get('prodname'),
-        'Product id': request.POST.get('prodid'),
-        'Cost per': request.POST.get('costper'),
-        'Cost' : request.POST.get('cost'),
-    }
-    firebase.post('/Data/Product/', Data)
-    return render(request, 'registernewproduct.html',{'compnames':compnames,"msg":msg,})
+
+
 
 
 
@@ -544,7 +523,7 @@ def postconfirmbookingorder (request) :
     # Your Account SID from twilio.com/console
     account_sid = "ACa146b54a52c221a9a0b309438c3171c5"
     # Your Auth Token from twilio.com/console
-    auth_token  = "8b1983e6e50af6320f2a533518de4709"
+    auth_token  = "5923edfc1be640f998dc9a3d237294a7"
 
     client = Client(account_sid, auth_token)
      
@@ -722,12 +701,13 @@ def ordersconfirmedbydispatch(request):
         "date_booking":date_booking
     }
     database.child("Data").child("dispatchedorders").child(user_id).push(data)
+    
     from twilio.rest import Client
 
     # Your Account SID from twilio.com/console
     account_sid = "ACa146b54a52c221a9a0b309438c3171c5"
     # Your Auth Token from twilio.com/console
-    auth_token  = "2c31b3403a26c425baf60e1d727f92ef"
+    auth_token  = "5923edfc1be640f998dc9a3d237294a7"
 
     client = Client(account_sid, auth_token)
      

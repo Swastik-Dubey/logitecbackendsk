@@ -18,8 +18,8 @@ urlpatterns = [
      path("registernewuser/" , views.registernewuser , name='registernewuser'),
      path("registernewcompany/" , views.registernewcompany , name='registernewcompany'),
      path("postregisternewcompany/" , views.postregisternewcompany , name='postregisternewcompany'),
-     path("postregisternewproduct/" , views.postregisternewproduct , name='postregisternewproduct'),
-     path("registernewproduct/" , views.registernewproduct , name='registernewproduct'),
+    
+    
      path("postregisteradmin/" , views.postregisteradmin , name='postregisteradmin'),
      path("postregisterbooking/" , views.postregisterbooking , name='postregisterbooking'),
      path("postregistermis/" , views.postregistermis , name='postregistermis'),
@@ -39,8 +39,7 @@ urlpatterns = [
      path("postcheckuserupdate/" , views.postcheckuserupdate ,name='postcheckuserupdate' ),
      path("postdeleteuser/" , views.postdeleteuser ,name='postuserdelete' ),
      path("deleteuser/" , views.deleteuser ,name='deleteuser' ),
-     path("productdetails/" , views.productdetails ,name='productdetails' ),
-     # path("bookingorder/" , views.bookingorder ,name='bookingorder' ),
+   
      path("postbookingorder/" , views.postbookingorder ,name='postbookingorder' ),
      path("postconfirmbookingorder/" , views.postconfirmbookingorder ,name='postconfirmbookingorder' ),
      path("postmis/" , views.postmis ,name='postmis' ),
