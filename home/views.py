@@ -166,6 +166,31 @@ def postregisterdispatch (request) :
     database.child("Data").child("Signup").child("Dispatch").push(data)
     msg="You have successfully registered a new Dispatch User!"
     return render(request,"registernewuser.html",{"msg":msg})
+
+def registercourier (request) :
+    email = request.POST.get('email')
+    passw1 = request.POST.get('pass')
+    try:
+        user=authe.create_user_with_email_and_password(email,passw1)
+        session_id=user['idToken']
+        request.session['uid']=str(session_id)
+    except:
+        msg="Email Already Exists!"
+        return render(request,"registercourier.html",{"msg":msg}) 
+        #push data 
+    data={
+        "Name1" : request.POST.get('name') ,
+        "Email" : email ,
+        "Address" : request.POST.get('add') ,
+        "User Id": request.POST.get('id'),
+        "City": request.POST.get('city'),
+        "Phone Number": request.POST.get('phone'),
+        }
+    database.child("Data").child("Signup").child("Courier").push(data)
+    msg="You have successfully registered a new Courier User!"
+    return render(request,"registercourier.html",{"msg":msg})
+
+
 def postloginadmin (request) :
     email = request.POST.get('username')
     passwd =  request.POST.get('password')
@@ -518,21 +543,21 @@ def postconfirmbookingorder (request) :
     }
 
     database.child("Data").child("BookingOrder").child("Orders").push(data)
-    from twilio.rest import Client
+    # from twilio.rest import Client
 
-    # Your Account SID from twilio.com/console
-    account_sid = "ACa146b54a52c221a9a0b309438c3171c5"
-    # Your Auth Token from twilio.com/console
-    auth_token  = "5923edfc1be640f998dc9a3d237294a7"
+    # # Your Account SID from twilio.com/console
+    # account_sid = "ACa146b54a52c221a9a0b309438c3171c5"
+    # # Your Auth Token from twilio.com/console
+    # auth_token  = "5923edfc1be640f998dc9a3d237294a7"
 
-    client = Client(account_sid, auth_token)
+    # client = Client(account_sid, auth_token)
      
-    message = client.messages.create(
-        to="+917588069659", 
-        from_="+16308844509",
-        body="Your Order has been Confirmed Your Bill Id is :"+bill_id+"\n"+"You Booked your order on :"+datee)
+    # message = client.messages.create(
+    #     to="+917588069659", 
+    #     from_="+16308844509",
+    #     body="Your Order has been Confirmed Your Bill Id is :"+bill_id+"\n"+"You Booked your order on :"+datee)
 
-    print(message.sid)
+    # print(message.sid)
     msg = "Your Order Has Been Placed Successfully !!"
     return render (request , "bookingorder.html" , {"msg" : msg,"fromcity" : fromcity ,
                                                                     "company_name" : company_name,
@@ -569,29 +594,51 @@ def dispatchuser1 (request) :
     
     return render (request , "dispatchuser.html" )
 
-def postdispatchuser (request) :
-    date1 = request.POST.get("date1")
-    date2 = request.POST.get("date2")
-    userid1 = request.POST.get("hiddenuserid")
-    firebase1=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
-    dates = list(firebase1.get("Data/BookingOrder/Orders" , None).values())
-    orderdates=[]
-    for i in dates :
-        for datename,dateval in i.items() : 
-            if datename == "date" :
-                orderdates.append(dateval)
+# def postdispatchuser (request) :
+#     date1 = request.POST.get("date1")
+#     date2 = request.POST.get("date2")
+#     userid1 = request.POST.get("hiddenuserid")
+#     firebase1=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
+#     dates = list(firebase1.get("Data/BookingOrder/Orders" , None).values())
+#     orderdates=[]
+#     for i in dates :
+#         for datename,dateval in i.items() : 
+#             if datename == "date" :
+#                 orderdates.append(dateval)
 
                 
+#     fromcity = request.POST.get("cityname")
+#     booking_db1 = database.child("Data").child("BookingOrder").child("Orders").get()
+#     list1=[]
+#     temp=[]
+#     billid =[]
+#     for x in orderdates :
+#         if(x>=date1 and x<=date2) :
+#             for bookingdb in booking_db1.each() :
+#                 bill_id=database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("bill_id").get().val()
+#                 if (bookingdb.val()["fromcity"] == fromcity and bookingdb.val()["date"] == x and bill_id not in temp) :   
+#                         list1=list1+[{"bill_id": database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("bill_id").get().val(),
+#                                      'from_city' : database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("fromcity").get().val(),
+#                                      'companyname12' :database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("company_name").get().val(),
+#                                      'datee' : database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("date").get().val(),
+#                                      'destination' : database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("destination").get().val(),
+#                                      'partyname' : database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("partyname").get().val(),
+#                                      'invcno' : database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("invcno").get().val()
+#                                      }]
+#                         temp.append(bill_id)
+#                         billid.append(bill_id)
+#     return render (request , "dispatchuser.html", {'list1' : list1 , "temp" : temp , "hiddenuserid1":userid1})
+
+def postdispatchuser (request) :
     fromcity = request.POST.get("cityname")
+    destination = request.POST.get("destination")
     booking_db1 = database.child("Data").child("BookingOrder").child("Orders").get()
     list1=[]
     temp=[]
     billid =[]
-    for x in orderdates :
-        if(x>=date1 and x<=date2) :
-            for bookingdb in booking_db1.each() :
+    for bookingdb in booking_db1.each() :
                 bill_id=database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("bill_id").get().val()
-                if (bookingdb.val()["fromcity"] == fromcity and bookingdb.val()["date"] == x and bill_id not in temp) :   
+                if (bookingdb.val()["fromcity"] == fromcity and bookingdb.val()["destination"] == destination and bill_id  not in temp) :   
                         list1=list1+[{"bill_id": database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("bill_id").get().val(),
                                      'from_city' : database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("fromcity").get().val(),
                                      'companyname12' :database.child("Data").child("BookingOrder").child("Orders").child(bookingdb.key()).child("company_name").get().val(),
@@ -602,17 +649,42 @@ def postdispatchuser (request) :
                                      }]
                         temp.append(bill_id)
                         billid.append(bill_id)
-    return render (request , "dispatchuser.html", {'list1' : list1 , "temp" : temp , "hiddenuserid1":userid1})
+    return render (request , "dispatchuser.html", {'list1' : list1 , "temp" : temp ,"destination" :destination
+    })
 
-def confirmdispatch(request):    
-    
+def confirmdispatch(request):  
+   
+    destination=request.POST.get("destination")
     bill_id=request.POST.get("bill_id" , None)
     userid2=request.POST.get("hiddenuserid2")
-    return render (request , "confirmdispatch.html",{"bill_id":bill_id , "userid2":userid2})
+    firebase=FirebaseApplication("https://neemeesh-trial-default-rtdb.firebaseio.com/", None)
+    courierusers=list(firebase.get("/Data/Signup/Courier",None).values())
+    courieruser=[]
+    couriernames=[]
+    # for courierdetails in courierusers:
+    #     for eachcompkey,eachcompval in courierdetails.items():
+    #         if eachcompkey=='City' and eachcompval == destination :
+              
+    #                 courieruser.append(courierdetails.items())
+    for courierdetails in courierusers:
+        for eachcompkey,eachcompval in courierdetails.items():
+            if eachcompkey=='City' and eachcompval == destination :
+              
+                courieruser.append(courierdetails)
+           
+           
+    for couriername in courieruser:
+        couriernames.append(couriername['Name1'])
+
+    print(couriernames)
+    print(destination)   
+         
+    return render (request , "confirmdispatch.html",{"bill_id":bill_id , "userid2":userid2, "couriernames":couriernames})
 
 
 
 def postconfirmdispatch (request) :
+    courier = request.POST.get("courier")  
     bill_id = request.POST.get("bill_id")
     userid = request.POST.get("hiddenuserid3")
     dbdispatch = database.child("Data").child("BookingOrder").child("Orders").get()
@@ -626,6 +698,7 @@ def postconfirmdispatch (request) :
             partyname = database.child("Data").child("BookingOrder").child("Orders").child(pcdispatch.key()).child("partyname").get().val()
             invcno = database.child("Data").child("BookingOrder").child("Orders").child(pcdispatch.key()).child("invcno").get().val()
             data = {
+                "courier":courier,
                 "Bill Id":bill_id,
                 "fromcity" : fromcity ,
                 "company_name" : companyname12 ,
@@ -635,7 +708,9 @@ def postconfirmdispatch (request) :
                 "invcno" : invcno,
                 "User Confirmed Order": userid
                 }
+            print(data)    
             database.child("Data").child("ConfirmedOrders").child("OrderDetails").child(userid).push(data)
+           
 
     for deletedispatch in dbdispatch.each():
         if deletedispatch.val()['bill_id'] == bill_id :

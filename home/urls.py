@@ -17,6 +17,7 @@ urlpatterns = [
      path("registermis/" , views.registermis , name='registermis'),
      path("registernewuser/" , views.registernewuser , name='registernewuser'),
      path("registernewcompany/" , views.registernewcompany , name='registernewcompany'),
+     path("registercourier/" , views.registercourier , name='registercourier'),
      path("postregisternewcompany/" , views.postregisternewcompany , name='postregisternewcompany'),
     
     

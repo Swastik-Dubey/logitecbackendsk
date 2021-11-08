@@ -116,7 +116,27 @@
                                 <input type="text" type="text" name="bill_id" value={{bill_id}} readonly class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 
                             </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1" style="font-size: 20px;">Select courier</label>
+                                <!-- <input type="text" id="brow1" list="brow1" name ="courier"  class="form-control"  aria-describedby="emailHelp" placeholder="Enter name"> -->
+                                <input type="text" name="courier" list="brow1" class="form-control">
+                                <datalist id="brow1" name="courier">
+                                    {% for compname in couriernames %}
+                                    <option value= "{{compname}}">{{compname}}</option>
+                                        {% endfor %}
+                                        </datalist>
+                                <!-- <small id="emailHelp" class="form-text text-muted">You Are Logging in As an Admin.</small> -->
+                              </div>
+                              <!-- <div class="form-group">
+                             <input type="text" list="brow1" name="couriernames" class="form-control" name="date2" aria-describedby="emailHelp" placeholder="Enter date">
+                                <datalist id="brow1" name="couriernames">
+                                {% for fromcity12 in couriernames %}
+                                <option value= "{{fromcity12}}" >{{fromcity12}}</option>
+                    {% endfor %}
+                                 </datalist> -->
 
+                            </div>
 
                             <button type="submit" class="btn btn-primary btn-block ">Confirm Order</button>
 
