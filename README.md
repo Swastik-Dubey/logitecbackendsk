@@ -3,7 +3,7 @@ This is a Hariom-Courier Web Application is used to Handle the all Couriers.....
 
 To runs This project you need
    1.) V.S Code With install all python pakages and modules 
-   2.)to install all packages run this command in terminal (pip freeze > requirements.txt)
+   2.)to install all packages run this command in terminal (pip install -r requirements.txt)
    3.) now you can runserver by typing "python manage.pyt runserver" in terminal
    4.) now you can copy the port and paste in browser and it will show our web
 
